@@ -10,4 +10,11 @@
       <ProjectReference Include="..\LargeExcelOperation.Core\LargeExcelOperation.Core.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Configurations" />
+      <Folder Include="Contexts" />
+      <Folder Include="Entities" />
+      <Folder Include="Helpers" />
+    </ItemGroup>
+
 </Project>
