@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LargeExcelOperation.Core", "LargeExcelOperation.Core\LargeExcelOperation.Core.csproj", "{B30F1C63-6A3F-4293-BBF4-5FE5F2D8D0AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LargeExcelOperation.Data", "LargeExcelOperation.Data\LargeExcelOperation.Data.csproj", "{CAFB53A0-33AC-4E9A-AD11-85504565358C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LargeExcelOperation.Rest", "LargeExcelOperation.Rest\LargeExcelOperation.Rest.csproj", "{4F170947-CB85-4AFC-AB33-9FF3CADE5BA8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LargeExcelOperation.Service", "LargeExcelOperation.Service\LargeExcelOperation.Service.csproj", "{EB68DEE6-46D0-4186-8E9F-AB5B18EB4235}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B30F1C63-6A3F-4293-BBF4-5FE5F2D8D0AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B30F1C63-6A3F-4293-BBF4-5FE5F2D8D0AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B30F1C63-6A3F-4293-BBF4-5FE5F2D8D0AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B30F1C63-6A3F-4293-BBF4-5FE5F2D8D0AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAFB53A0-33AC-4E9A-AD11-85504565358C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAFB53A0-33AC-4E9A-AD11-85504565358C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAFB53A0-33AC-4E9A-AD11-85504565358C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAFB53A0-33AC-4E9A-AD11-85504565358C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F170947-CB85-4AFC-AB33-9FF3CADE5BA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F170947-CB85-4AFC-AB33-9FF3CADE5BA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F170947-CB85-4AFC-AB33-9FF3CADE5BA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F170947-CB85-4AFC-AB33-9FF3CADE5BA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB68DEE6-46D0-4186-8E9F-AB5B18EB4235}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB68DEE6-46D0-4186-8E9F-AB5B18EB4235}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB68DEE6-46D0-4186-8E9F-AB5B18EB4235}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB68DEE6-46D0-4186-8E9F-AB5B18EB4235}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
