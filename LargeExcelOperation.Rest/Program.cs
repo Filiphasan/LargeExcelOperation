@@ -1,4 +1,5 @@
 using LargeExcelOperation.Data.Contexts;
+using LargeExcelOperation.Rest.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,7 @@ builder.Services.AddDbContext<LargeExcelDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"));
 });
+builder.Services.RegisterService();
 
 var app = builder.Build();
 

@@ -12,10 +12,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Extensions" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\LargeExcelOperation.Service\LargeExcelOperation.Service.csproj" />
     </ItemGroup>
 

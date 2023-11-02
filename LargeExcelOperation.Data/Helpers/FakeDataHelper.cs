@@ -121,7 +121,7 @@ public static class FakeDataHelper
             .RuleFor(p => p.Barcode, f => f.Random.Long(1_000_000_000_000, 9_999_999_999_999))
             .RuleFor(p => p.StockQuantity, f => f.Random.Int(1, 100))
             .RuleFor(p => p.CategoryId, f => f.PickRandom(categories).Id)
-            .Generate(10_000);
+            .Generate(1_000);
         
         return data;
     }
@@ -135,7 +135,7 @@ public static class FakeDataHelper
             .RuleFor(c => c.Surname, f => f.Person.LastName)
             .RuleFor(c => c.Gsm, f => $"05{f.Random.Number(100_000_000, 999_999_999)}")
             .RuleFor(c => c.Address, f => f.Address.FullAddress())
-            .Generate(1_000);
+            .Generate(200);
         
         return data;
     }
@@ -148,7 +148,7 @@ public static class FakeDataHelper
             .RuleFor(o => o.OrderNumber, f => f.Random.Long(1_000_000_000_000, 9_999_999_999_999))
             .RuleFor(o => o.CustomerId, f => f.PickRandom(customers).Id)
             .RuleFor(o => o.OrderDate, f => f.Date.Between(DateTime.Today.AddYears(-1), DateTime.Today.AddDays(1)))
-            .Generate(40_000);
+            .Generate(4_000);
 
         return data;
     }
@@ -165,7 +165,7 @@ public static class FakeDataHelper
             .RuleFor(o => o.Price, (f,o) => o.Quantity * o.Product!.Price)
             .RuleFor(o => o.TaxPrice, (_,o) => o.Price * (decimal)0.18)
             .RuleFor(o => o.TotalPrice, (_,o) => o.Price + o.TaxPrice)
-            .Generate(400_000);
+            .Generate(100_000);
         
         return data;
     }
