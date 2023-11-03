@@ -1,6 +1,6 @@
 namespace LargeExcelOperation.Core.Models.Report;
 
-public struct InvoiceReportRequestModel
+public class InvoiceReportRequestModel
 {
     public DateTime? StartDate { get; set; }
     public DateTime? EndDate { get; set; }

@@ -1,4 +1,3 @@
-using LargeExcelOperation.Core.Models;
 using LargeExcelOperation.Core.Models.Report;
 using LargeExcelOperation.Data.Contexts;
 using LargeExcelOperation.Data.Helpers;
@@ -24,14 +23,20 @@ public class ExcelController : ControllerBase
     public async Task<IActionResult> SeedDataAsync()
     {
         await FakeDataHelper.CreateTestDataAsync(_context);
-
         return Ok();
     }
 
-    [HttpPost("ReportInvoiceExcelWithNpoi")]
-    public async Task<IActionResult> ReportInvoiceExcelWithNpoiAsync([FromBody] InvoiceReportRequestModel requestModel)
+    [HttpGet("ReportInvoiceExcelWithNpoi")]
+    public async Task<IActionResult> ReportInvoiceExcelWithNpoiAsync([FromQuery] InvoiceReportRequestModel requestModel)
     {
         var result = await _reportService.InvoiceExcelReportWithNpoiAsync(requestModel);
+        return File(result.Bytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", result.Filename);
+    }
+
+    [HttpGet("ReportInvoiceExcelWithLargeXlsx")]
+    public async Task<IActionResult> ReportInvoiceExcelWithLargeXlsxAsync([FromQuery] InvoiceReportRequestModel requestModel)
+    {
+        var result = await _reportService.InvoiceExcelReportWithLargeXlsxAsync(requestModel);
         return File(result.Bytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", result.Filename);
     }
 }

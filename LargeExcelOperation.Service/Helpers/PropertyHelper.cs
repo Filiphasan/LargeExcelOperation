@@ -6,10 +6,10 @@ namespace LargeExcelOperation.Service.Helpers;
 
 public static class PropertyHelper
 {
-    public static IEnumerable<PropertyInfo> GetModelProperties<TModel>()
+    public static PropertyInfo[] GetModelProperties<TModel>()
     {
         var type = typeof(TModel);
-        var properties = type.GetProperties().AsEnumerable();
+        var properties = type.GetProperties();
         return properties;
     }
 

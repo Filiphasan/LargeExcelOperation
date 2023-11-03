@@ -105,7 +105,28 @@ public class ReportService : IReportService
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "{methodName} Exception", methodName);
+            _logger.LogError(ex, "{MethodName} Exception", methodName);
+            return new InvoiceReportResultModel();
+        }
+    }
+
+    public async Task<InvoiceReportResultModel> InvoiceExcelReportWithLargeXlsxAsync(InvoiceReportRequestModel requestModel)
+    {
+        const string methodName = $"{nameof(ReportService)} - {nameof(InvoiceExcelReportWithLargeXlsxAsync)}";
+        try
+        {
+            var list = await GetDataAsync(requestModel);
+
+            var excelBytes = await _excelService.CreateExcelWithLargeXlsxAsync(list);
+            return new InvoiceReportResultModel()
+            {
+                Bytes = excelBytes,
+                Filename = $"Invoice Excel Report With LargeXlsx - {DateTime.Now:dd-MM-yyyy HH:mm:ss}"
+            };
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "{MethodName} Exception", methodName);
             return new InvoiceReportResultModel();
         }
     }

@@ -6,4 +6,5 @@ namespace LargeExcelOperation.Service.Interfaces;
 public interface IReportService
 {
     Task<InvoiceReportResultModel> InvoiceExcelReportWithNpoiAsync(InvoiceReportRequestModel requestModel);
+    Task<InvoiceReportResultModel> InvoiceExcelReportWithLargeXlsxAsync(InvoiceReportRequestModel requestModel);
 }
