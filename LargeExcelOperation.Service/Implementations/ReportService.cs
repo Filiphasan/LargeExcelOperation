@@ -59,8 +59,6 @@ public class ReportService : IReportService
                 })
             .AsNoTracking();
 
-        var queryString = query.ToQueryString();
-
         var data = await query.ToListAsync();
 
         return data.Select(x => new InvoiceReportSelectModel()

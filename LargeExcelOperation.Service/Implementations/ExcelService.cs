@@ -1,13 +1,13 @@
 using System.Diagnostics;
 using System.Drawing;
-using System.Reflection;
-using LargeExcelOperation.Core.Models;
 using LargeExcelOperation.Service.Helpers;
 using LargeExcelOperation.Service.Interfaces;
 using LargeXlsx;
 using Microsoft.Extensions.Logging;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
+using SharpCompress.Archives.Zip;
+using SharpCompress.Common;
 
 namespace LargeExcelOperation.Service.Implementations;
 
@@ -48,7 +48,7 @@ public class ExcelService : IExcelService
             for (int i = 0; i < titles.Length; i++)
             {
                 var cell = firstRow.CreateCell(i);
-                cell.SetCellValue(titles.ElementAt(i).Title);
+                cell.SetCellValue(titles[i].Title);
                 cell.CellStyle = style;
             }
 
@@ -79,7 +79,8 @@ public class ExcelService : IExcelService
 
             await using var memoryStream = new MemoryStream();
             workbook.Write(memoryStream);
-            result = memoryStream.ToArray();
+            var bytes = memoryStream.ToArray();
+            result = CompressBytes(bytes, $"Report-{DateTime.Now.Ticks}.xlsx");
             watch.Stop();
             _logger.LogInformation("{MethodName} excel save on memory stream, transition time: {Time}", methodName,
                 watch.ElapsedMilliseconds);
@@ -94,14 +95,16 @@ public class ExcelService : IExcelService
 
     public async Task<byte[]> CreateExcelWithLargeXlsxAsync<TEntity>(IEnumerable<TEntity> data)
     {
-        string methodName = $"{nameof(ExcelService)} - {nameof(CreateExcelWithNpoiAsync)} - {Guid.NewGuid()}";
+        string methodName = $"{nameof(ExcelService)} - {nameof(CreateExcelWithLargeXlsxAsync)} - {Guid.NewGuid()}";
         var result = Array.Empty<byte>();
         try
         {
+            var ticks = DateTime.Now.Ticks;
+            var filePath = $"Report-{ticks}.xlsx";
             _logger.LogInformation("{MethodName} Excel operation start", methodName);
             var watch = Stopwatch.StartNew();
-            await using var stream = new MemoryStream();
-            using var xlsxWriter = new XlsxWriter(stream);
+            var stream = new FileStream(filePath, FileMode.Create, FileAccess.Write);
+            var xlsxWriter = new XlsxWriter(stream);
             var sheet = xlsxWriter.BeginWorksheet("Sheet 1");
 
             watch.Stop();
@@ -120,7 +123,7 @@ public class ExcelService : IExcelService
             {
                 firstRow.Write(t.Title, headerStyle);
             }
-            
+
             watch.Stop();
             _logger.LogInformation("{MethodName} create first row with specific color, transition time: {Time}",
                 methodName, watch.ElapsedMilliseconds);
@@ -135,13 +138,21 @@ public class ExcelService : IExcelService
                     row.Write(value?.ToString());
                 }
             }
-            
+
             watch.Stop();
             _logger.LogInformation("{MethodName} create other rows, transition time: {Time}", methodName,
                 watch.ElapsedMilliseconds);
             watch.Restart();
+            xlsxWriter.Dispose();
+            await stream.DisposeAsync();
 
-            result = stream.ToArray();
+            var fileBytes = await File.ReadAllBytesAsync(filePath);
+            result = CompressBytes(fileBytes, filePath);
+
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
         }
         catch (Exception ex)
         {
@@ -169,5 +180,18 @@ public class ExcelService : IExcelService
     public Task<byte[]> CreateExcelEpPlusAndMultiSheetAsync<TEntity>(IEnumerable<TEntity> data)
     {
         throw new NotImplementedException();
+    }
+
+    private static byte[] CompressBytes(byte[] data, string zippedFileName)
+    {
+        using var memoryStream = new MemoryStream();
+        using (var zipArchive = ZipArchive.Create())
+        {
+            using var entryStream = new MemoryStream(data);
+            zipArchive.AddEntry(zippedFileName, entryStream);
+            zipArchive.SaveTo(memoryStream, CompressionType.Deflate);
+        }
+        var bytes = memoryStream.ToArray();
+        return bytes;
     }
 }

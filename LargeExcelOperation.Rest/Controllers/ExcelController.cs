@@ -30,13 +30,13 @@ public class ExcelController : ControllerBase
     public async Task<IActionResult> ReportInvoiceExcelWithNpoiAsync([FromQuery] InvoiceReportRequestModel requestModel)
     {
         var result = await _reportService.InvoiceExcelReportWithNpoiAsync(requestModel);
-        return File(result.Bytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", result.Filename);
+        return File(result.Bytes, "application/zip", result.Filename);
     }
 
     [HttpGet("ReportInvoiceExcelWithLargeXlsx")]
     public async Task<IActionResult> ReportInvoiceExcelWithLargeXlsxAsync([FromQuery] InvoiceReportRequestModel requestModel)
     {
         var result = await _reportService.InvoiceExcelReportWithLargeXlsxAsync(requestModel);
-        return File(result.Bytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", result.Filename);
+        return File(result.Bytes, "application/zip", result.Filename);
     }
 }
