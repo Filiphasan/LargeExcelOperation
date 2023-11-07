@@ -103,7 +103,7 @@ public class ExcelService : IExcelService
             var filePath = $"Report-{ticks}.xlsx";
             _logger.LogInformation("{MethodName} Excel operation start", methodName);
             var watch = Stopwatch.StartNew();
-            var stream = new FileStream(filePath, FileMode.Create, FileAccess.Write);
+            var stream = new MemoryStream();
             var xlsxWriter = new XlsxWriter(stream);
             var sheet = xlsxWriter.BeginWorksheet("Sheet 1");
 
@@ -144,15 +144,9 @@ public class ExcelService : IExcelService
                 watch.ElapsedMilliseconds);
             watch.Restart();
             xlsxWriter.Dispose();
+
+            result = CompressBytes(stream.ToArray(), filePath);
             await stream.DisposeAsync();
-
-            var fileBytes = await File.ReadAllBytesAsync(filePath);
-            result = CompressBytes(fileBytes, filePath);
-
-            if (File.Exists(filePath))
-            {
-                File.Delete(filePath);
-            }
         }
         catch (Exception ex)
         {
