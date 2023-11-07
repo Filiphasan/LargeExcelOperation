@@ -162,26 +162,6 @@ public class ExcelService : IExcelService
         return result;
     }
 
-    public Task<byte[]> CreateExcelWithEpPlusAsync<TEntity>(IEnumerable<TEntity> data)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<byte[]> CreateExcelWithNpoiAndMultiSheetAsync<TEntity>(IEnumerable<TEntity> data)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<byte[]> CreateExcelWithLargeXlsxAndMultiSheetAsync<TEntity>(IEnumerable<TEntity> data)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<byte[]> CreateExcelEpPlusAndMultiSheetAsync<TEntity>(IEnumerable<TEntity> data)
-    {
-        throw new NotImplementedException();
-    }
-
     private static byte[] CompressBytes(byte[] data, string zippedFileName)
     {
         using var memoryStream = new MemoryStream();
